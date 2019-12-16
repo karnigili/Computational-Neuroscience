@@ -1,0 +1,78 @@
+
+FROM python:3.7.2
+
+MAINTAINER Gili Karni "gili@minerva.kgi.edu"
+
+USER root
+
+# Set the working directory to /home
+WORKDIR /home
+
+RUN apt-get -qq update
+
+RUN apt-get install -y \
+    locales \
+    wget \
+    python3 \
+    tar \
+    sudo \
+    vim \
+    git \
+    python3-dev \
+    gnome-devel \
+    libcr-dev \
+    libncursesw5-dev \
+    ncurses-base \
+    ncurses-bin \
+    ncurses-term
+
+
+RUN pip install --upgrade pip
+
+WORKDIR /home
+
+### install interviews ###
+RUN wget https://neuron.yale.edu/ftp/neuron/versions/v7.6/iv-19.tar.gz
+RUN tar zxf iv-19.tar.gz
+RUN mv iv-19 iv
+
+### install neuron ###
+RUN wget https://neuron.yale.edu/ftp/neuron/versions/v7.6/7.6.2/nrn-7.6.2.tar.gz
+RUN tar zxf nrn-7.6.2.tar.gz
+RUN mv nrn-7.6 nrn
+
+#compile interviews
+WORKDIR /home/iv
+RUN sh ./build.sh
+RUN ./configure --prefix=/home/iv
+RUN make
+RUN make install
+
+
+#compile neruon
+WORKDIR /home/nrn
+RUN ./configure --prefix=/home/nrn --with-iv=/home/iv --with-nrnpython=python3 --without-paranrn
+RUN make
+RUN make install
+
+WORKDIR /home/nrn/src/nrnpython
+RUN sudo python3 setup.py install
+
+
+### add to path ###
+ENV PATH=/home/iv/x86_64/bin:/home/nrn/x86_64/bin:$PATH
+ENV LD_LIBRARY_PATH=/usr/local/lib:/home/nrn/x86_64/lib:/home/iv/x86_64/lib/
+
+# install relevant python packages
+RUN pip install scipy numpy matplotlib netpyne
+
+#update pythonpath
+ENV PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3/dist-packages
+
+
+### utils ###
+# modify plotting back-end
+ENV MPLBACKEND="agg"
+
+
+WORKDIR /home
