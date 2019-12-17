@@ -3,8 +3,8 @@ This repo showcases some work I have done using computational tools to explore t
 
 ### Utils
 
-1. docker image to run NetPyNE with python3 [here](https://github.com/karnigili/NetworksNeuroscience/tree/master/docker/docker_python)
-2. docker image to run NetPyNE on jupyter notebook [here](https://github.com/karnigili/NetworksNeuroscience/tree/master/docker/docker_jupyter)
+1. A Docker image to run NetPyNE with python3 [here](https://github.com/karnigili/NetworksNeuroscience/tree/master/docker/docker_python)
+2. A Docker image to run NetPyNE on jupyter notebook [here](https://github.com/karnigili/NetworksNeuroscience/tree/master/docker/docker_jupyter)
 
 ### Tutorials 
 
