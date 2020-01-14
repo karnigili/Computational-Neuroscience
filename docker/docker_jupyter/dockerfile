@@ -75,20 +75,9 @@ ENV PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3/dist-packages:/opt/conda/bin/p
 ENV MPLBACKEND="agg"
 
 
-### set up ipython ###
-
-# RUN pip3 install --no-cache-dir \
-      #      ipykernel \
-      #      jupyter
-
-# Set up our notebook config.
-#COPY jupyter_config.py /root/.jupyter/
-
-COPY jupyter_launch.sh /
-#RUN chmod +x /jupyter_launch.sh
 
 # IPython
 EXPOSE 8888
 
 
-WORKDIR /home/workspace
+WORKDIR /home/jovyan/work/
