@@ -1,4 +1,4 @@
-# Networks Neuroscience
+# Computational Neuroscience
 This repo showcases some work I have done using computational tools to explore the networks underlying cognitive neuroscience. 
 
 ### Utils
